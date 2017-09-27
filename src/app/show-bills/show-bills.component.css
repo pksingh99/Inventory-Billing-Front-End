@@ -1,0 +1,14 @@
+md-card{
+  width:400px;
+  margin: auto;
+  margin-top: 25px;
+}
+md-form-field,md-select{
+  width: 80%;
+}
+table{
+  width: 90%;
+}
+md-select{
+  margin-bottom: 20px;
+}

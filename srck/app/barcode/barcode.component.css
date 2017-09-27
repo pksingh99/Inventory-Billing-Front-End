@@ -1,0 +1,30 @@
+md-card{
+  width:400px;
+  margin: auto;
+  margin-top: 25px;
+}
+md-form-field,md-select{
+  width: 80%;
+}
+table{
+  width: 100%;
+}
+md-select{
+  margin-bottom: 20px;
+}
+td{
+  width:50%;
+}
+.bord{
+
+  border: 1px solid black;margin: 8px;
+}
+.pno{
+
+padding: 0px;
+border: 0px;
+  width:50%;
+}
+.mno{
+  margin: 0px;
+}

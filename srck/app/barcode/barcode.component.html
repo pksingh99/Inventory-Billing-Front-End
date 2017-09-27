@@ -1,0 +1,46 @@
+
+<md-card [ngStyle]="{'padding': '0px'}">
+  <md-toolbar>Supplier</md-toolbar>
+
+  <table [ngStyle]="{'margin': '20px'}" class="example-full-width" cellspacing="0">
+<tr><td>
+  <md-select placeholder="Supplier" [(ngModel)]="supp">
+  <md-option *ngFor="let sup of suppliers" [value]="sup.ID">
+    {{ sup.name }}
+  </md-option>
+</md-select>
+{{supp}}</td></tr>
+<tr><td>
+  <md-form-field>
+<input mdInput [(ngModel)]="from" [mdDatepicker]="picker" placeholder="From">
+<md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+<md-datepicker #picker></md-datepicker>
+</md-form-field>
+</td></tr>
+<tr><td>
+  <md-form-field>
+<input mdInput [(ngModel)]="to" [mdDatepicker]="picker1" placeholder="To">
+<md-datepicker-toggle mdSuffix [for]="picker1"></md-datepicker-toggle>
+<md-datepicker #picker1></md-datepicker>
+</md-form-field>
+</td></tr>
+<tr><td>
+<md-select *ngIf="details!=''" placeholder="Purchase" [(ngModel)]="PID" (change)="done(from,to)">
+<md-option *ngFor="let item1 of details" [value]="item1.PID">
+{{item1.description}}-{{item1.purchasedate}}
+</md-option>
+</md-select>
+</td></tr>
+<tr><td>
+  <button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary"  (click)="getInfo(from,to)">Get</button>
+  <button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary"  onClick="window.location.reload()">Refresh</button>
+  
+  <button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary"  (click)="goPrint('here')">Print</button>
+  </td></tr>
+</table>
+</md-card>
+
+
+
+
+<div id="here" class="row" [ngStyle]="{'background': 'white','width':'595','minHeight':'842','margin':'auto'}"></div>

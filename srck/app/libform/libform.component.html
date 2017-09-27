@@ -1,0 +1,51 @@
+<md-card [ngStyle]="{'padding': '0px'}">
+  <md-toolbar>Purchase</md-toolbar>
+
+  <table [ngStyle]="{'margin': '20px'}" class="example-full-width" cellspacing="0">
+<tr><td>
+  <md-select placeholder="Supplier" [(ngModel)]="supp">
+  <md-option *ngFor="let sup of suppliers" [value]="sup.ID">
+    {{ sup.name }}
+  </md-option>
+</md-select></td></tr>
+    <tr>
+     <td><md-form-field class="example-full-width">
+       <input mdInput placeholder="Description" [(ngModel)]="description" >
+     </md-form-field></td>
+   </tr>
+   <tr>
+      <td><md-form-field class="example-full-width">
+        <input mdInput placeholder="Invoice Number" [(ngModel)]="invoiceNo"  type="number"  >
+      </md-form-field></td>
+    </tr>
+
+   <tr>
+      <td><md-form-field class="example-full-width">
+        <input mdInput placeholder="Quantity" [(ngModel)]="quantity" type="number" >
+      </md-form-field></td>
+    </tr>
+    <tr>
+       <td><md-form-field class="example-full-width">
+         <input mdInput placeholder="Rate" [(ngModel)]="rate" type="number" >
+       </md-form-field></td>
+     </tr>
+  <tr>
+         <td><md-form-field class="example-full-width">
+           <input mdInput placeholder="Amount" [(ngModel)]="amount" [value]="quantity*rate" type="number" >
+         </md-form-field></td>
+       </tr>
+       <tr>
+       <td>
+         <md-form-field>
+  <input mdInput [(ngModel)]="purchasedate" [mdDatepicker]="picker" placeholder="Purchased date">
+  <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+  <md-datepicker #picker></md-datepicker>
+</md-form-field>
+
+<!--<material-datepicker [(date)]="yourModelDate"></material-datepicker> -->
+
+</td></tr>
+
+ </table>
+<button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="openDialog()">Submit</button>
+</md-card>

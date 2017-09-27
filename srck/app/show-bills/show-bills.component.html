@@ -1,0 +1,37 @@
+<md-card [ngStyle]="{'padding': '0px','padding-bottom':'20px'}">
+  <md-toolbar>Employees</md-toolbar>
+
+<table [ngStyle]="{'margin': '20px'}"  class="example-full-width" cellspacing="0">
+  <tr>
+   <td><md-form-field class="example-full-width">
+     <input mdInput placeholder="Invoice No" [(ngModel)]="invoiceNo" type="number" (change)="getBill()">
+   </md-form-field></td>
+ </tr>
+</table>
+<table [ngStyle]="{'margin': '20px'}"  class="example-full-width table" cellspacing="0">
+  <tr *ngFor="let item2 of list2">
+    <td><p>Name:{{item2.clientname}}</p>
+    <p>Phone:{{item2.clientphone}}</p>
+        <p>Employee ID:{{item2.EID}}</p>
+          <p>Time:{{item2.time}}</p>
+          <p>Comments: {{item2.comments}}</p></td>
+  </tr>
+</table>
+<table [ngStyle]="{'margin': '20px'}"  class="example-full-width table" cellspacing="0">
+  <tr><th><b>Sr</b></th><th><b>Description</b></th><th><b>Rate</b></th>
+  <th><b>GST</b></th><th><b>Value</b></th></tr>
+<tr *ngFor="let item of list; let i =index;">
+  <td>{{i+1}}</td>
+  <td>{{item.description}}</td>
+    <td>{{item.rate}}</td>
+      <td>{{item.gst}}%</td>
+        <td>{{item.amount}}</td>
+</tr>
+<tr *ngFor="let item2 of list2">
+  <td></td><td></td><td></td>
+  <td><b>Total</b></td>
+    <td><b>{{item2.totalAmount}}</b></td>
+</tr>
+</table>
+
+</md-card>

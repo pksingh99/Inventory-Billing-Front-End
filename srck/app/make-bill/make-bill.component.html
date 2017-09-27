@@ -1,0 +1,62 @@
+
+<md-card id="hide" [ngStyle]="{'margin-bottom': '20px'}">
+
+<tr><td>
+  <md-select placeholder="Employee" [(ngModel)]="semp">
+  <md-option *ngFor="let emp of employee" [value]="emp.ID">
+    {{ emp.name }}
+  </md-option>
+</md-select>
+<md-form-field class="example-full-width">
+  <input mdInput placeholder="Client Name" [(ngModel)]="name" >
+</md-form-field>
+<md-form-field class="example-full-width">
+  <input mdInput placeholder="Client Phone No" [(ngModel)]="phone" [type]="number" >
+</md-form-field>
+
+</td></tr>
+<md-form-field class="example-full-width">
+  <input mdInput placeholder="Barcode" [(ngModel)]="barcode" [type]="number" >
+</md-form-field>
+<button  [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="goGet()">Add</button>
+<button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="saveInvoice()" *ngIf="show==false">Paid</button>
+<button class='bill' [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="goPrint('bill')" >Print</button>
+
+</md-card>
+<md-card id="bill">
+
+  <h3><b><u>Silk Emporium</u></b></h3>
+<p>Address: Church Square Panjim-Goa 403001</p>
+<p>Phone Number: 9673417124</p>
+<p>Invoice No: <b  [ngStyle]="{'font-size': '20px'}">{{invoiceNo}}</b></p>
+<br>
+<table class="table">
+  <tr><th [ngStyle]="{'width':'14%'}"><b>Sr</b></th><th [ngStyle]="{'width':'30%'}"><b>Description</b></th><th [ngStyle]="{'width':'14%'}">Rate</th><th [ngStyle]="{'width':'14%'}"><b>Quantity</b></th><th [ngStyle]="{'width':'14%'}"><b>GST</b></th>
+    <th [ngStyle]="{'width':'14%'}"><b>Amount</b></th></tr>
+<tr *ngFor="let item of allBroughtItem; let i =index;">
+  <td >
+{{i+1}}
+  </td>
+  <td >
+  {{item.description}}
+  </td>
+    <td >
+{{item.rate}}
+</td>
+<td >1</td>
+<td *ngIf="gstshow==false">
+  <md-select  [ngStyle]="{'padding': '0px'}" placeholder="" [(ngModel)]="item.gst" (change)="updateBill()">
+  <md-option [value]="0">0</md-option>
+  <md-option [value]="5">5</md-option>
+  <md-option [value]="12">12</md-option>
+  <md-option [value]="18">18</md-option>
+</md-select>
+</td>
+<td *ngIf="gstshow==true">
+{{item.gst}}%
+</td>
+<td >{{item.rate+((item.gst*item.rate)/100)}}</td>
+</tr>
+<tr *ngIf="amount!=0"><td></td><td></td><td></td><td></td><td><b>Total</b></td><td><b>{{amount}}</b></td></tr>
+</table>
+</md-card>

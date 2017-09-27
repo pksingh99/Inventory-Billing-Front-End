@@ -1,0 +1,17 @@
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  md-toolbar{
+    visibility: hidden;
+  }
+  #barcodes, #barcodes * {
+    visibility: visible;
+  }
+  #barcodes {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+}

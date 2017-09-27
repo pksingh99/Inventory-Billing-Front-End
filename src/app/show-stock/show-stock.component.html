@@ -1,0 +1,27 @@
+<table class="table table-striped">
+  <tr>
+    <td><b>PID</b></td>
+    <td><b>SID</b></td>
+    <td><b>Description</b></td>
+    <td><b>Invoice</b></td>
+    <td><b>Quantity</b></td>
+    <td><b>Rate</b></td>
+      <td><b>Amount</b></td>
+    <td><b>Purchase Date</b></td></tr>
+<tr *ngFor="let item of displayStock">
+<td>{{item.PID}}</td>
+<td>{{item.SID}}</td>
+<td>{{item.description}}</td>
+<td>{{item.invoiceNo}}</td>
+<td>{{item.quantity}}</td>
+<td>{{item.rate}}</td>
+<td>{{item.amount}}</td>
+<td>{{item.purchasedate}}</td>
+</tr>
+
+</table>
+<md-paginator [length]="length"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+              (page)="pageEvent = $event">
+</md-paginator>

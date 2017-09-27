@@ -1,0 +1,35 @@
+<md-card [ngStyle]="{'padding': '0px'}">
+  <md-toolbar>Supplier</md-toolbar>
+
+<table [ngStyle]="{'margin': '20px'}"  class="example-full-width" cellspacing="0">
+  <tr>
+     <td><md-form-field class="example-full-width">
+       <input mdInput placeholder="Company" [(ngModel)]="name" >
+     </md-form-field></td>
+   </tr>
+
+     <tr>
+        <td><md-form-field class="example-full-width">
+          <input mdInput placeholder="Address" [(ngModel)]="address" >
+        </md-form-field></td>
+      </tr>
+
+        <tr>
+           <td><md-form-field class="example-full-width">
+             <input mdInput placeholder="Phone Number" [(ngModel)]="phone" >
+           </md-form-field></td>
+         </tr>
+
+           <tr>
+              <td><md-form-field class="example-full-width">
+                <input mdInput placeholder="GST Number" [(ngModel)]="gst" >
+              </md-form-field></td>
+            </tr>
+
+              <tr>
+                 <td><md-form-field class="example-full-width">
+                   <input mdInput placeholder="Comments" [(ngModel)]="others" >
+                 </md-form-field></td>
+               </tr>
+               <button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="openDialog()">Submit</button>
+</table></md-card>

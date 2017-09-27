@@ -1,0 +1,26 @@
+<md-card [ngStyle]="{'padding': '0px'}">
+  <md-toolbar>Employees</md-toolbar>
+
+<table [ngStyle]="{'margin': '20px'}"  class="example-full-width" cellspacing="0">
+  <tr>
+   <td><md-form-field class="example-full-width">
+     <input mdInput placeholder="Name" [(ngModel)]="name" >
+   </md-form-field></td>
+ </tr>
+ <tr>
+  <td><md-form-field class="example-full-width">
+    <input mdInput placeholder="Phone" [(ngModel)]="phone" type="number" >
+  </md-form-field></td>
+</tr>
+<tr>
+ <td><md-form-field class="example-full-width">
+   <input mdInput placeholder="Address" [(ngModel)]="address">
+ </md-form-field></td>
+</tr>
+
+</table>
+<button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="addEmployee()">Submit</button>
+
+
+
+</md-card>
