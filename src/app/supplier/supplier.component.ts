@@ -2,7 +2,8 @@ import { Component, OnInit,Inject } from '@angular/core';
 import {Http,Response} from '@angular/http';
 import {MdSnackBar} from '@angular/material';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
-import {UserService} from "../user.service";
+import { LolService } from '../lol.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-supplier',
@@ -11,13 +12,14 @@ import {UserService} from "../user.service";
 })
 export class SupplierComponent implements OnInit {
 
-  constructor(private http:Http,public snackBar: MdSnackBar,public dialog: MdDialog,public use:UserService) { }
+  constructor(private router: Router,private lol:LolService,private http:Http,public snackBar: MdSnackBar,public dialog: MdDialog) { }
 public name:string="";
 public address:string="";
 public phone:number=null;
 public gst:string="";
 public others:string="";
 public resp:string="";
+public sint:string="";
 public apiurl:string="http://localhost/inventory/";
 
  openDialog(): void {
@@ -36,6 +38,11 @@ this.doSubmit();
 }
 
   ngOnInit() {
+    if(!this.lol.getLol()){
+
+      this.router.navigateByUrl('/login');
+
+    }
     //this.use.doSuccess();
   }
   openSnackBar(message: string, action: string) {
@@ -45,10 +52,10 @@ this.doSubmit();
   }
 doSubmit(){
 
-if((this.name!="")&&(this.address!="")&&(this.phone!=null)){
+if((this.name!="")&&(this.address!="")&&(this.phone!=null)&&(this.sint!="")){
 // do it
 
-this.http.get(this.apiurl + 'supplier.php?name='+this.name+"&address="+this.address+"&phone="+this.phone+"&gst="+this.gst+"&others="+this.others).subscribe(
+this.http.get(this.apiurl + 'supplier.php?sint='+this.sint+'&name='+this.name+"&address="+this.address+"&phone="+this.phone+"&gst="+this.gst+"&others="+this.others).subscribe(
 (res: Response) => { //const abc = res.json();
 this.resp = res.json();
 console.log(this.resp);
@@ -65,6 +72,7 @@ this.phone=null;
 this.address=null;
 this.gst=null;
 this.others=null;
+this.sint=null;
 }
 
 else{

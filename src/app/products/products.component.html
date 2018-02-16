@@ -1,0 +1,100 @@
+<md-card [ngStyle]="{'padding': '0px'}">
+  <md-toolbar>New Product</md-toolbar>
+  <table class="table">
+    <tr>
+      <td [ngStyle]="{'width': '50%'}">
+<table  class="example-full-width" cellspacing="0">
+  <tr>
+   <td><md-form-field class="example-full-width">
+     <input mdInput placeholder="Name" [(ngModel)]="name" >
+   </md-form-field></td>
+ </tr>
+
+<tr>
+  <tr>
+   <td>
+         <md-select placeholder="Supplier" [(ngModel)]="company" (click)="getsupp()">
+             <md-option *ngFor="let sup of suppliers" [value]="sup.ID">
+                 {{ sup.name }}
+             </md-option>
+         </md-select>
+   </td>
+  </tr>
+  <tr>
+  <td>
+    <div class="flx">
+    <md-select placeholder="Category" [(ngModel)]="cate" (change)="oncate()" (click)="getcates()">
+        <md-option *ngFor="let cate of category" [value]="cate.name">
+            {{ cate.name }}
+        </md-option>
+    </md-select>
+    <b (click)="showCate('overlay')">New</b>
+  </div>
+  </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="flx">
+
+    <md-select placeholder="Sub Category" [(ngModel)]="scate" (click)="oncate()">
+        <md-option *ngFor="let scate of subcategory" [value]="scate.name">
+            {{ scate.name }}
+        </md-option>
+    </md-select>
+    <b (click)="showCate('overlay2')">New</b>
+</div>
+  </td>
+  </tr>
+</table>
+</td><td [ngStyle]="{'width': '50%'}">
+  <table>
+    <tr>
+     <td><md-form-field class="example-full-width">
+       <input mdInput placeholder="Barcode" [(ngModel)]="barcode" >
+     </md-form-field></td>
+   </tr>
+   <tr>
+    <td><md-form-field class="example-full-width">
+      <input mdInput placeholder="Code" [(ngModel)]="code" >
+    </md-form-field></td>
+   </tr>
+  <tr>
+   <td><md-form-field class="example-full-width">
+     <input mdInput placeholder="MRP"  type="number"  [(ngModel)]="mrp" >
+   </md-form-field></td>
+  </tr>
+  <tr>
+   <td><md-form-field class="example-full-width">
+     <input mdInput placeholder="Purchase Price"  type="number"  [(ngModel)]="prp" >
+   </md-form-field></td>
+  </tr>
+  <tr>
+   <td><md-form-field class="example-full-width">
+     <input mdInput placeholder="Selling Price" type="number" [(ngModel)]="srp" >
+   </md-form-field></td>
+  </tr>
+</table>
+</td></tr></table>
+<button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="insertProduct()">Add</button>
+
+</md-card>
+<div id="overlay" >
+  <div id="content">
+    <app-newcategory></app-newcategory>
+    <button (click)="hideCate('overlay');getcates()">Close</button>
+  </div>
+</div>
+
+<div id="overlay2" >
+  <div id="content2">
+    <app-newsubcategory></app-newsubcategory>
+    <button (click)="hideCate('overlay2')">Close</button>
+  </div>
+</div>
+
+<div id="overlay3" >
+  <div id="content3">
+    <app-supplier></app-supplier>
+    <button (click)="hideCate('overlay3')">Close</button>
+  </div>
+</div>

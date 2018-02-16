@@ -7,7 +7,11 @@
        <input mdInput placeholder="Company" [(ngModel)]="name" >
      </md-form-field></td>
    </tr>
-
+   <tr>
+      <td><md-form-field class="example-full-width">
+        <input mdInput placeholder="Company Initials" [(ngModel)]="sint" maxlength="5" >
+      </md-form-field></td>
+    </tr>
      <tr>
         <td><md-form-field class="example-full-width">
           <input mdInput placeholder="Address" [(ngModel)]="address" >
@@ -32,4 +36,6 @@
                  </md-form-field></td>
                </tr>
                <button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="openDialog()">Submit</button>
+               <button [routerLink]="['/enterstock']" [ngStyle]="{'margin': '10px'}" md-raised-button color="primary">Enter Stock</button>
+
 </table></md-card>

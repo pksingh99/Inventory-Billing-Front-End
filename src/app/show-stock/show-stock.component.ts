@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Http,Response} from '@angular/http';
 import {PageEvent} from '@angular/material';
+import { LolService } from '../lol.service';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-show-stock',
@@ -9,9 +11,14 @@ import {PageEvent} from '@angular/material';
 })
 export class ShowStockComponent implements OnInit {
 public apiurl:string="";
-  constructor(private http:Http) { }
+  constructor(private router: Router,private lol:LolService,private http:Http) { }
 
   ngOnInit() {
+    if(!this.lol.getLol()){
+
+      this.router.navigateByUrl('/login');
+
+    }
     this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
 this.apiurl = this.apiurl + "connect/";
 this.apiurl="http://localhost/inventory/";

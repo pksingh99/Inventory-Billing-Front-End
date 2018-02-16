@@ -1,5 +1,6 @@
-<md-sidenav-container class="example-container">
+<md-sidenav-container class="example-container"  id="whe">
   <md-sidenav #sidenav class="example-sidenav">
+    <div *ngIf="utype=='admin'">
     <p (click)="view=0;sidenav.close();" [ngStyle]="{'margin-top': '50px'}">
       <b [routerLink]="['/enterstock']" [ngStyle]="{'font-size': '15px'}">Enter Stock</b>
     </p>
@@ -21,13 +22,22 @@
     <p (click)="view=6;sidenav.close();" [ngStyle]="{'margin-top': '20px'}">
     <b  [routerLink]="['/barcode']"  [ngStyle]="{'font-size': '15px'}">  Barcode </b>
     </p>
+  </div>
+  <div *ngIf="utype=='billing'">
+  <p (click)="view=3;sidenav.close();" [ngStyle]="{'margin-top': '20px'}">
+  <b  [routerLink]="['/makebills']"  [ngStyle]="{'font-size': '15px'}">  Billing </b>
+  </p>
+  <p (click)="view=5;sidenav.close();" [ngStyle]="{'margin-top': '20px'}">
+  <b  [routerLink]="['/showbills']"  [ngStyle]="{'font-size': '15px'}">  Show Bills </b>
+  </p>
+</div>
   </md-sidenav>
 
   <div>
     <md-toolbar class="toolbar" id="toolbar">
 
-            <md-icon [ngStyle]="{'font-size':'15px'}" (click)="sidenav.open()"><span class="glyphicon">&#xe236;</span></md-icon>
-<span>Silk Emporium</span>
+            <md-icon [ngStyle]="{'font-size':'15px'}" (click)="showthis();sidenav.open()"><span class="glyphicon">&#xe236;</span></md-icon>
+<span [ngStyle]="{'padding-bottom': '10px'}"></span>
     </md-toolbar>
     <router-outlet></router-outlet>
   </div>

@@ -15,7 +15,6 @@ import { ShowStockComponent } from './show-stock/show-stock.component';
 //import { DatepickerModule } from 'angular2-material-datepicker';
 import {MdDatepickerModule,MdNativeDateModule} from '@angular/material';
 import { MakeBillComponent } from './make-bill/make-bill.component';
-import { PrintBarcodesComponent } from './print-barcodes/print-barcodes.component';
 import { SupplierComponent,DialogOverviewExampleDialog1 } from './supplier/supplier.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { ShowBillsComponent } from './show-bills/show-bills.component';
@@ -29,10 +28,16 @@ import {MatMenuModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material';
 import {MatCardModule} from '@angular/material';
 import {MatDialogModule} from '@angular/material';
-import {MatButtonModule} from '@angular/material';
+import {MatButtonModule,MatSlideToggleModule} from '@angular/material';
 import { LoginComponent } from './login/login.component';
-import {UserService} from './user.service';
-import {AuthGuard} from './auth.guard';
+import { NewBarcodeComponent } from './new-barcode/new-barcode.component';
+import { LolService } from './lol.service';
+import { NewcategoryComponent } from './newcategory/newcategory.component';
+import { NewsubcategoryComponent } from './newsubcategory/newsubcategory.component';
+import { ExchangeComponent } from './exchange/exchange.component';
+import { ProductsComponent } from './products/products.component';
+import {MdAutocompleteModule} from '@angular/material/autocomplete';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -41,19 +46,23 @@ import {AuthGuard} from './auth.guard';
     LibformComponent,DialogOverviewExampleDialog,DialogOverviewExampleDialog1,
     ShowStockComponent,
     MakeBillComponent,
-    PrintBarcodesComponent,
     SupplierComponent,
     EmployeeComponent,
     ShowBillsComponent,
     BarcodeComponent,
-    LoginComponent
+    LoginComponent,
+    NewBarcodeComponent,
+    NewcategoryComponent,
+    NewsubcategoryComponent,
+    ExchangeComponent,
+    ProductsComponent
 
   ],
-  imports: [MatButtonModule,MatDialogModule,MatCardModule,MatToolbarModule,MatMenuModule,MatSidenavModule,MatSnackBarModule,MatPaginatorModule,MatSelectModule,routing,FormsModule,HttpModule,MdIconModule,MdDatepickerModule,MdNativeDateModule,
-    BrowserModule,MdInputModule,BrowserAnimationsModule,MdTooltipModule,MdSidenavModule,NoopAnimationsModule
+  imports: [MatSlideToggleModule,MatButtonModule,MatDialogModule,MatCardModule,MatToolbarModule,MatMenuModule,MatSidenavModule,MatSnackBarModule,MatPaginatorModule,MatSelectModule,routing,FormsModule,HttpModule,MdIconModule,MdDatepickerModule,MdNativeDateModule,
+    BrowserModule,MdInputModule,BrowserAnimationsModule,MdTooltipModule,MdSidenavModule,NoopAnimationsModule,MdAutocompleteModule,MatAutocompleteModule
   ],
   entryComponents: [DialogOverviewExampleDialog,LibformComponent,DialogOverviewExampleDialog1,SupplierComponent],
-  providers: [UserService,AuthGuard],
+  providers: [LolService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

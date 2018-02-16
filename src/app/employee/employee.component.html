@@ -9,6 +9,29 @@
  </tr>
  <tr>
   <td><md-form-field class="example-full-width">
+    <input mdInput placeholder="Userid" [(ngModel)]="uname" >
+  </md-form-field></td>
+</tr>
+<tr>
+ <td><md-select placeholder="Category" [(ngModel)]="utype">
+     <md-option *ngFor="let ut of utypee" [value]="ut.name">
+         {{ ut.name }}
+     </md-option>
+ </md-select></td>
+</tr>
+
+<tr>
+ <td><md-form-field class="example-full-width">
+   <input mdInput placeholder="Password" [(ngModel)]="upass"  type="password" >
+ </md-form-field></td>
+</tr>
+<tr>
+ <td><md-form-field class="example-full-width">
+   <input mdInput placeholder="Repeat Password" [(ngModel)]="rpass" type="password" >
+ </md-form-field></td>
+</tr>
+ <tr>
+  <td><md-form-field class="example-full-width">
     <input mdInput placeholder="Phone" [(ngModel)]="phone" type="number" >
   </md-form-field></td>
 </tr>

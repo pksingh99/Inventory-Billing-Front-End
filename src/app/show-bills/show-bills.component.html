@@ -1,5 +1,5 @@
 <md-card [ngStyle]="{'padding': '0px','padding-bottom':'20px'}">
-  <md-toolbar>Employees</md-toolbar>
+  <md-toolbar>Show Bills/Returns</md-toolbar>
 
 <table [ngStyle]="{'margin': '20px'}"  class="example-full-width" cellspacing="0">
   <tr>
@@ -7,6 +7,11 @@
      <input mdInput placeholder="Invoice No" [(ngModel)]="invoiceNo" type="number" (change)="getBill()">
    </md-form-field></td>
  </tr>
+ <tr>
+  <td><md-form-field class="example-full-width">
+    <input mdInput placeholder="Or Phone" [(ngModel)]="ph" type="number" (change)="getinv()">
+  </md-form-field></td>
+</tr>
 </table>
 <table [ngStyle]="{'margin': '20px'}"  class="example-full-width table" cellspacing="0">
   <tr *ngFor="let item2 of list2">
@@ -18,11 +23,18 @@
   </tr>
 </table>
 <table [ngStyle]="{'margin': '20px'}"  class="example-full-width table" cellspacing="0">
-  <tr><th><b>Sr</b></th><th><b>Description</b></th><th><b>Rate</b></th>
+  <tr><th><b>Sr</b></th><th><b>Barcode</b></th><th><b>Description</b></th><th><b>Quantity</b></th><th><b>Return</b></th><th><b>Rate</b></th>
   <th><b>GST</b></th><th><b>Value</b></th></tr>
 <tr *ngFor="let item of list; let i =index;">
-  <td>{{i+1}}</td>
+
+  <td>{{i+1}}<p (click)="showCate('overlay');bar=item.barcode;amm=item.amount;quant=item.quantity;">R</p></td>
+  <td>{{item.barcode}}</td>
   <td>{{item.description}}</td>
+    <td>{{item.quantity}}</td>
+    <td [ngStyle]="{'padding-top': '0px'}">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="" [(ngModel)]="retun" type="number" min="1" max="item.quantity">
+      </md-form-field></td>
     <td>{{item.rate}}</td>
       <td>{{item.gst}}%</td>
         <td>{{item.amount}}</td>
@@ -33,5 +45,14 @@
     <td><b>{{item2.totalAmount}}</b></td>
 </tr>
 </table>
-
+{{ret}}
 </md-card>
+
+<div id="overlay" >
+  <div id="content">
+
+    <button (click)="return(bar,invoiceNo,amm,retun,quant);hideCate('overlay')">Return</button>
+
+    <button (click)="hideCate('overlay')">Close</button>
+  </div>
+</div>

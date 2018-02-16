@@ -1,51 +1,197 @@
 <md-card [ngStyle]="{'padding': '0px'}">
   <md-toolbar>Purchase</md-toolbar>
+  <div class="row">
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-select placeholder="Supplier" [(ngModel)]="supp">
+        <md-option *ngFor="let sup of suppliers" [value]="sup.ID">
+          {{ sup.name }}
+        </md-option>
+      </md-select>
+      <b (click)="showCate('overlay3')">New</b>
+    </div>
+    <!--      <div class="col-sm-3 col-md-4 col-lg-2 cell">
+            <md-select placeholder="Category" [(ngModel)]="cate" (change)="oncate()">
+                <md-option *ngFor="let cate of category" [value]="cate.name">
+                    {{ cate.name }}
+                </md-option>
+            </md-select>
+            <b (click)="showCate('overlay')">New</b>
+        </div>
+        <div class="col-sm-3 col-md-4 col-lg-2 cell">
+            <md-select placeholder="Sub Category" [(ngModel)]="scate">
+                <md-option *ngFor="let scate of subcategory" [value]="scate.name">
+                    {{ scate.name }}
+                </md-option>
+            </md-select>
+            <b (click)="showCate('overlay2')">New</b>
+        </div>
+      -->
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Invoice Number" [(ngModel)]="invoiceNo" type="number">
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell" [ngStyle]="{'display': 'flex'}">
 
-  <table [ngStyle]="{'margin': '20px'}" class="example-full-width" cellspacing="0">
-<tr><td>
-  <md-select placeholder="Supplier" [(ngModel)]="supp">
-  <md-option *ngFor="let sup of suppliers" [value]="sup.ID">
-    {{ sup.name }}
-  </md-option>
-</md-select></td></tr>
-    <tr>
-     <td><md-form-field class="example-full-width">
-       <input mdInput placeholder="Description" [(ngModel)]="description" >
-     </md-form-field></td>
-   </tr>
-   <tr>
-      <td><md-form-field class="example-full-width">
-        <input mdInput placeholder="Invoice Number" [(ngModel)]="invoiceNo"  type="number"  >
-      </md-form-field></td>
-    </tr>
+      <md-form-field class="example-full-width">
+        <input type="text" placeholder="Search Product" (input)="searchProd()" [(ngModel)]="prod" aria-label="Number" mdInput [mdAutocomplete]="autot">
+        <md-autocomplete #autot="mdAutocomplete">
+          <md-option *ngFor="let option of products" [value]="option.name" (click)="onenter()">
+            {{ option.name }}
+          </md-option>
+        </md-autocomplete>
 
-   <tr>
-      <td><md-form-field class="example-full-width">
-        <input mdInput placeholder="Quantity" [(ngModel)]="quantity" type="number" >
-      </md-form-field></td>
-    </tr>
-    <tr>
-       <td><md-form-field class="example-full-width">
-         <input mdInput placeholder="Rate" [(ngModel)]="rate" type="number" >
-       </md-form-field></td>
-     </tr>
-  <tr>
-         <td><md-form-field class="example-full-width">
-           <input mdInput placeholder="Amount" [(ngModel)]="amount" [value]="quantity*rate" type="number" >
-         </md-form-field></td>
-       </tr>
-       <tr>
-       <td>
-         <md-form-field>
-  <input mdInput [(ngModel)]="purchasedate" [mdDatepicker]="picker" placeholder="Purchased date">
-  <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-  <md-datepicker #picker></md-datepicker>
-</md-form-field>
+      </md-form-field>
+      <b (click)="showCate('overlay4')">New</b>
 
-<!--<material-datepicker [(date)]="yourModelDate"></material-datepicker> -->
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Bar Code" disabled [(ngModel)]="barcode">
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Design Code" disabled [(ngModel)]="dcode">
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Description" disabled [(ngModel)]="description">
+      </md-form-field>
+    </div>
 
-</td></tr>
 
- </table>
-<button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="openDialog()">Submit</button>
+
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Packing" [(ngModel)]="packing" type="number">
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field>
+        <input mdInput [(ngModel)]="purchasedate" [mdDatepicker]="picker" placeholder="Invoice date">
+        <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+        <md-datepicker #picker></md-datepicker>
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Quantity" [(ngModel)]="pquantity" type="number" (change)="getPamount()">
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Purchase Rate" [(ngModel)]="prate" type="number" (change)="getPamount()">
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Purchase Amount" [(ngModel)]="pamount" disabled type="number">
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Purchase Tax%" [(ngModel)]="ptax" type="number" (change)="getEPrate()">
+      </md-form-field>
+      {{eprate}}
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Selling Rate" (change)="getSrate()" [(ngModel)]="srate" type="number">
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Selling Amount" disabled [(ngModel)]="samount" type="number">
+      </md-form-field>
+    </div>
+
+  </div>
+  <button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="makeJson()">Add</button>
+  <button [routerLink]="['/barcode']" [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="done()">Barcode</button>
+
+
 </md-card>
+<md-card>
+  <table class="table">
+    <tr>
+      <th>Product</th>
+      <th>Purchase</th>
+      <th>Selling Rate</th>
+    </tr>
+    <tr *ngFor="let item of invoiceDetails">
+      <td>
+        <table>
+          <tr><td>Description</td><td>{{item.description}}</td></tr>
+          <tr><td>Design Code</td><td>{{item.dcode}}</td></tr>
+          <tr><td>Category</td><td>{{item.cate}}</td></tr>
+          <tr><td>Subcategory</td><td>{{item.scate}}</td></tr>
+        </table></td>
+      <td>
+        <table>
+          <tr><td>Quantity</td><td>{{item.pquantity}}</td></tr>
+          <tr><td>Rate</td><td>{{item.prate}}</td></tr>
+          <tr><td>Tax</td><td>{{item.ptax}}</td></tr>
+          <tr><td>Amount</td><td>{{item.pamount}}</td></tr>
+          <tr><td>Effective Rate</td><td>{{item.eprate}}</td></tr>
+          <tr><td>Effective Amount</td><td>{{item.epamount}}</td></tr>
+        </table>
+        </td>
+        <td>
+        <table>
+          <tr><td>Selling Rate</td><td>{{item.srate}}</td></tr>
+          <tr><td>Selling Amount</td><td>{{item.samount}}</td></tr>
+        </table></td>
+    </tr>
+
+  </table>
+  <table class="table" *ngIf="grandSellingTotal!=null">
+    <tr>
+      <th>Grand Purchase Total</th>
+      <th>Grand Selling Total</th>
+    </tr>
+    <tr>
+      <td>{{grandPurchaseTotal+packing}}</td>
+      <td>{{grandSellingTotal}}</td>
+    </tr>
+  </table>
+  <table class="table" *ngIf="grandSellingTotal!=null">
+    <tr>
+      <td><button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="done()">Done</button>
+      </td>
+    </tr>
+  </table>
+
+</md-card>
+
+<div id="overlay">
+  <div id="content">
+    <button (click)="hideCate('overlay')">Close</button>
+
+    <app-newcategory></app-newcategory>
+  </div>
+</div>
+
+<div id="overlay2">
+  <div id="content2">
+    <button (click)="hideCate('overlay2')">Close</button>
+
+    <app-newsubcategory></app-newsubcategory>
+  </div>
+</div>
+
+<div id="overlay3">
+  <div id="content3">
+    <button (click)="hideCate('overlay3')">Close</button>
+
+    <app-supplier></app-supplier>
+  </div>
+</div>
+
+<div id="overlay4" [ngStyle]="{'overflow': 'auto'}">
+  <div id="content4">
+    <button (click)="hideCate('overlay4')">Close</button>
+    <app-products></app-products>
+  </div>
+</div>

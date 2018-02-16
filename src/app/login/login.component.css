@@ -2,6 +2,7 @@ md-card{
   width:400px;
   margin: auto;
   margin-top: 25px;
+  margin-bottom: 25px;
 }
 md-form-field{
   width: 90%;

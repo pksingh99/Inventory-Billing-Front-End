@@ -1,18 +1,23 @@
 md-card{
-  width:96%;
-  margin: auto;
-  margin-bottom: 20px;
+  width:500px;
+
 }
-.cell{
-  margin: 12px;
+md-form-field{
+  width: 90%;
+}
+table{
+  width: 100%;
 }
 
-.nobe{
- padding-bottom: 0px;
-  border: 0px;
-}
+md-select {
 
-#overlay,#overlay1 {
+  width: 90%;padding-bottom: 20px;
+
+}
+.flx{
+  display: flex;
+}
+#overlay,#overlay2,#overlay3 {
     position: fixed;
     display: none;
     width: 100%;
@@ -26,13 +31,13 @@ md-card{
     cursor: pointer;
 }
 
-#content,#content1{
+#content, #content2, #content3{
     position: absolute;
     top: 200px;
     left: 50%;
     padding: 15px;
     border-radius: 5px;
-    width: 450px;
+    width: 550px;
     background:white;
     transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);

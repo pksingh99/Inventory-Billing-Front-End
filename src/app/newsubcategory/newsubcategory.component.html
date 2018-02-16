@@ -1,0 +1,23 @@
+<md-card [ngStyle]="{'padding': '0px','padding-bottom':'20px'}">
+  <md-toolbar>Category</md-toolbar>
+
+<table [ngStyle]="{'margin': '20px'}"  class="example-full-width" cellspacing="0">
+  <tr>
+   <td colspan="2">
+     <md-select placeholder="Category" [(ngModel)]="cid" (click)="refcat()">
+         <md-option *ngFor="let cate of category" [value]="cate.ID">
+             {{ cate.name }}
+         </md-option>
+     </md-select>
+
+   </td>
+ </tr>
+ <tr>
+  <td><md-form-field class="example-full-width">
+    <input mdInput placeholder="subCategory" [(ngModel)]="subcategory" type="text" >
+  </md-form-field></td>
+<td><button (click)="addit()">Add</button></td>
+</tr>
+<tr><td colspan="2">{{message}}</td></tr>
+</table>
+</md-card>

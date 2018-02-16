@@ -3,6 +3,9 @@ import { MdInputModule } from '@angular/material';
 import { Http, Response, Headers } from '@angular/http';
 import {MdDialog, MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
 import {MdSnackBar} from '@angular/material';
+import { LolService } from '../lol.service';
+import {Router} from '@angular/router';
+
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
@@ -10,14 +13,25 @@ import {MdSnackBar} from '@angular/material';
 })
 export class EmployeeComponent implements OnInit {
 
-  constructor(private http:Http,public snackBar: MdSnackBar,public dialog: MdDialog) { }
+  constructor(public router: Router,private lol:LolService,private http:Http,public snackBar: MdSnackBar,public dialog: MdDialog) { }
 public name:string="";
 public address:string="";
 public phone:number=null;
 public resp:string="";
+public upass:string="";
+public utype:string="";
+public rpass:string="";
+public uname:string="";
 public apiurl:string="http://localhost/inventory/";
+public utypee=[{name:"admin"},{name:"billing"}];
 
   ngOnInit() {
+    if(!this.lol.getLol()){
+
+      this.router.navigateByUrl('/login');
+
+    }
+    console.log(this.lol.getLol());
   }
 
   openSnackBar(message: string, action: string) {
@@ -29,11 +43,10 @@ addEmployee(){
 
 
 
-
-  if((this.name!="")&&(this.address!="")&&(this.phone!=null)){
+  if(((this.upass==this.rpass))&&(this.utype!="")&&(this.name!="")&&(this.address!="")&&(this.phone!=null)&&(this.upass!="")&&(this.uname!=null)){
   // do it
 
-  this.http.get(this.apiurl + 'employees.php?name='+this.name+"&address="+this.address+"&phone="+this.phone).subscribe(
+  this.http.get(this.apiurl + 'employees.php?utype='+this.utype+'&uname='+this.uname+'&upass='+this.upass+'&name='+this.name+"&address="+this.address+"&phone="+this.phone).subscribe(
   (res: Response) => { //const abc = res.json();
   this.resp = res.json();
   console.log(this.resp);
