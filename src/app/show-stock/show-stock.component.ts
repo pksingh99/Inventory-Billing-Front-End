@@ -22,6 +22,10 @@ public apiurl:string="";
     this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
 this.apiurl = this.apiurl + "connect/";
 this.apiurl="http://localhost/inventory/";
+this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
+this.apiurl = this.apiurl + "inventory/";
+this.apiurl = this.apiurl.replace(/:4200/g, '').toLowerCase();
+
 this.showStock();
   }
  public displayStock:any;
@@ -38,7 +42,7 @@ pageIndex=0;
  }
  showStock(){
 
-   this.http.get(this.apiurl + 'showlib.php?sr='+0+"&sr1="+50).subscribe(
+   this.http.get(this.apiurl + 'showlib.php?useracc='+this.lol.getAcc()+'&sr='+0+"&sr1="+50).subscribe(
    (res: Response) => { //const abc = res.json();
      this.displayStock = res.json();
 

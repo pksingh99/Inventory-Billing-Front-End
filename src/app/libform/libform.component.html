@@ -34,10 +34,10 @@
     <div class="col-sm-3 col-md-4 col-lg-2 cell" [ngStyle]="{'display': 'flex'}">
 
       <md-form-field class="example-full-width">
-        <input type="text" placeholder="Search Product" (input)="searchProd()" [(ngModel)]="prod" aria-label="Number" mdInput [mdAutocomplete]="autot">
+        <input type="text" placeholder="Search Product" (input)="searchProd()"  (optionSelected)="onenter()" [(ngModel)]="prod" aria-label="Number" mdInput [mdAutocomplete]="autot">
         <md-autocomplete #autot="mdAutocomplete">
-          <md-option *ngFor="let option of products" [value]="option.name" (click)="onenter()">
-            {{ option.name }}
+          <md-option *ngFor="let option of products" [value]="option.barcode" (click)="onenter()">
+            {{ option.name }} {{option.barcode}}
           </md-option>
         </md-autocomplete>
 
@@ -94,11 +94,30 @@
       <md-form-field class="example-full-width">
         <input mdInput placeholder="Purchase Tax%" [(ngModel)]="ptax" type="number" (change)="getEPrate()">
       </md-form-field>
-      {{eprate}}
     </div>
     <div class="col-sm-3 col-md-4 col-lg-2 cell">
       <md-form-field class="example-full-width">
-        <input mdInput placeholder="Selling Rate" (change)="getSrate()" [(ngModel)]="srate" type="number">
+        <input mdInput placeholder="Purchase Tax Amount" (change)="getPtaxamount()" [(ngModel)]="ptaxamount" type="number">
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Profit %" (change)="getSrate()" [(ngModel)]="stax" type="number">
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Profit Per" (change)="getProfitPer()" [(ngModel)]="profit" type="number">
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Total Profit"  disabled [(ngModel)]="totalprofit" type="number">
+      </md-form-field>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="Selling Rate" (change)="getSrate2()" [(ngModel)]="srate" type="number">
       </md-form-field>
     </div>
     <div class="col-sm-3 col-md-4 col-lg-2 cell">
@@ -109,7 +128,7 @@
 
   </div>
   <button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="makeJson()">Add</button>
-  <button [routerLink]="['/barcode']" [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="done()">Barcode</button>
+<!--  <button [routerLink]="['/barcode']" [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="done()">Barcode</button> -->
 
 
 </md-card>
@@ -140,8 +159,11 @@
         </td>
         <td>
         <table>
-          <tr><td>Selling Rate</td><td>{{item.srate}}</td></tr>
-          <tr><td>Selling Amount</td><td>{{item.samount}}</td></tr>
+          <tr><td>Profit%</td><td>{{item.stax}}</td></tr>
+          <tr><td>Profit Per</td><td>{{item.profit}}</td></tr>
+          <tr><td>Profit Total</td><td>{{item.totalprofit}}</td></tr>
+          <tr><td>Rate</td><td>{{item.srate}}</td></tr>
+          <tr><td>Amount</td><td>{{item.samount}}</td></tr>
         </table></td>
     </tr>
 

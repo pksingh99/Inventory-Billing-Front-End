@@ -15,6 +15,10 @@ public ress:any="";
 public apiurl:string="http://localhost/inventory/";
 
   ngOnInit() {
+    this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
+  this.apiurl = this.apiurl + "inventory/";
+  this.apiurl = this.apiurl.replace(/:4200/g, '').toLowerCase();
+
     if(!this.lol.getLol()){
 
       this.router.navigateByUrl('/login');

@@ -38,6 +38,7 @@ import { ExchangeComponent } from './exchange/exchange.component';
 import { ProductsComponent } from './products/products.component';
 import {MdAutocompleteModule} from '@angular/material/autocomplete';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { Barcode2Component } from './barcode2/barcode2.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     NewcategoryComponent,
     NewsubcategoryComponent,
     ExchangeComponent,
-    ProductsComponent
+    ProductsComponent,
+    Barcode2Component
 
   ],
   imports: [MatSlideToggleModule,MatButtonModule,MatDialogModule,MatCardModule,MatToolbarModule,MatMenuModule,MatSidenavModule,MatSnackBarModule,MatPaginatorModule,MatSelectModule,routing,FormsModule,HttpModule,MdIconModule,MdDatepickerModule,MdNativeDateModule,

@@ -38,6 +38,10 @@ this.doSubmit();
 }
 
   ngOnInit() {
+    this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
+  this.apiurl = this.apiurl + "inventory/";
+  this.apiurl = this.apiurl.replace(/:4200/g, '').toLowerCase();
+
     if(!this.lol.getLol()){
 
       this.router.navigateByUrl('/login');
@@ -55,7 +59,7 @@ doSubmit(){
 if((this.name!="")&&(this.address!="")&&(this.phone!=null)&&(this.sint!="")){
 // do it
 
-this.http.get(this.apiurl + 'supplier.php?sint='+this.sint+'&name='+this.name+"&address="+this.address+"&phone="+this.phone+"&gst="+this.gst+"&others="+this.others).subscribe(
+this.http.get(this.apiurl + 'supplier.php?useracc='+this.lol.getAcc()+'&sint='+this.sint+'&name='+this.name+"&address="+this.address+"&phone="+this.phone+"&gst="+this.gst+"&others="+this.others).subscribe(
 (res: Response) => { //const abc = res.json();
 this.resp = res.json();
 console.log(this.resp);

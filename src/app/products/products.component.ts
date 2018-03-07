@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import {MdSnackBar} from '@angular/material';
+import { LolService } from '../lol.service';
 
 @Component({
   selector: 'app-products',
@@ -18,14 +19,18 @@ public name:string="";
 public barcode:string="generate";
 public code:string="NA";
 public inres:any;
-public mrp:number;
-public srp:number;
-public prp:number;
+public mrp:number=null;
+public srp:number=null;
+public prp:number=null;
 public company:string;
 
-  constructor(private http:Http,public snackBar: MdSnackBar) { }
+  constructor(private http:Http,public snackBar: MdSnackBar,public lol:LolService) { }
 
   ngOnInit() {
+    this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
+  this.apiurl = this.apiurl + "inventory/";
+  this.apiurl = this.apiurl.replace(/:4200/g, '').toLowerCase();
+
     this.getcates();
 this.getsupp();
 //    this.oncate();
@@ -43,7 +48,7 @@ this.getsupp();
     }
   }
   oncate(){
-    this.http.get(this.apiurl + 'getsubcategory.php?category='+this.cate).subscribe(
+    this.http.get(this.apiurl + 'getsubcategory.php?useracc='+this.lol.getAcc()+'&category='+this.cate).subscribe(
     (res: Response) => { //const abc = res.json();
       this.subcategory = res.json();
     })
@@ -55,17 +60,13 @@ this.getsupp();
   }
 
 insertProduct(){
-  console.log(this.apiurl + 'products.php?category='+this.cate+'&subcategory='+this.scate+'&code='+this.code+'&barcode='+this.barcode+'&name='+this.name+'&srp='+this.srp+'&mrp='+this.mrp+'&prp='+this.prp+'&company='+this.company);
-if(  (this.code!="")&& (this.barcode!="")&& (this.name!="")&& (this.mrp!=null)&& (this.srp!=null)&&(this.prp!=null)&&(this.company!=""))
+  console.log(this.apiurl + 'products.php?useracc='+this.lol.getAcc()+'&category='+this.cate+'&subcategory='+this.scate+'&code='+this.code+'&barcode='+this.barcode+'&name='+this.name+'&srp='+this.srp+'&mrp='+this.mrp+'&prp='+this.prp+'&company='+this.company);
+if(  (this.code!="")&& (this.barcode!="")&& (this.name!="")&&(this.company!=""))
 {
   console.log((this.srp<=this.mrp)&&(this.prp<=this.srp));
   console.log(this.srp+"<="+this.mrp+this.prp+"<="+this.srp);
-  if((this.srp<=this.mrp)&&(this.prp<=this.srp)){
     this.validateInput();
-  }
-  else{
-    this.openSnackBar("Price Not Etered Properly","Thanks");
-  }
+
 }
 else{
   this.openSnackBar("Please Enter Valid Data","Thanks");
@@ -74,7 +75,7 @@ else{
 }
 
 validateInput(){
-  this.http.get(this.apiurl + 'products.php?category='+this.cate+'&subcategory='+this.scate+'&code='+this.code+'&barcode='+this.barcode+'&name='+this.name+'&srp='+this.srp+'&mrp='+this.mrp+'&prp='+this.prp+'&company='+this.company).subscribe(
+  this.http.get(this.apiurl + 'products.php?useracc='+this.lol.getAcc()+'&category='+this.cate+'&subcategory='+this.scate+'&code='+this.code+'&barcode='+this.barcode+'&name='+this.name+'&srp='+this.srp+'&mrp='+this.mrp+'&prp='+this.prp+'&company='+this.company).subscribe(
   (res: Response) => { //const abc = res.json();
     this.inres = res.json();
     if(this.inres[0]['result']=="true"){
@@ -88,14 +89,14 @@ validateInput(){
 }
 
 getsupp(){
-  this.http.get(this.apiurl + 'getSupplier.php').subscribe(
+  this.http.get(this.apiurl + 'getSupplier.php?useracc='+this.lol.getAcc()).subscribe(
   (res: Response) => { //const abc = res.json();
     this.suppliers = res.json();
   })
 }
   getcates(){
 
-  this.http.get(this.apiurl + 'getCategory.php?id='+Math.random()).subscribe(
+  this.http.get(this.apiurl + 'getCategory.php?useracc='+this.lol.getAcc()+'&id='+Math.random()).subscribe(
   (res: Response) => { //const abc = res.json();
     this.category = res.json();
     console.log(this.category);

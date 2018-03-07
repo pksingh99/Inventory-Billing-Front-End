@@ -16,10 +16,14 @@ public category:string="";
 public result:any="";
 public message:string="";
   ngOnInit() {
+    this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
+  this.apiurl = this.apiurl + "inventory/";
+  this.apiurl = this.apiurl.replace(/:4200/g, '').toLowerCase();
+
   }
 addit(){
 
-  this.http.get(this.apiurl + 'category.php?category='+this.category).subscribe(
+  this.http.get(this.apiurl + 'category.php?useracc='+this.lol.getAcc()+'&category='+this.category).subscribe(
   (res: Response) => { //const abc = res.json();
     this.result = res.json();
  if(this.result[0]['result']==true){

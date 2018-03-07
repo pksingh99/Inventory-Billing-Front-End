@@ -19,6 +19,8 @@ public utype:any;
 
 
     ngOnInit() {
+      this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
+    this.apiurl = this.apiurl + "inventory/";
 this.user=this.lol.getUser();
 this.utype=this.user[0]['utype'];
 console.log(this.utype+"utype");

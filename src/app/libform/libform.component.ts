@@ -36,26 +36,55 @@ export class LibformComponent implements OnInit {
     this.pamount = this.prate * this.pquantity;
     this.pamount = Math.round(this.pamount);
 
-    this.getSrate();
+    this.getEPrate();
+    this.getTotalProfit();
   }
 
   getSamount() {
-
+    this.getProfit();
+    this.getTotalProfit();
     this.samount = this.srate * this.pquantity;
     this.samount = Math.round(this.samount);
   }
   getSrate() {
-
-    //this.srate=  this.prate + (this.prate)*(this.stax/100);
-    //  this.srate=Math.round(this.srate);
+    this.srate=  this.eprate + (this.eprate)*(this.stax/100);
+    this.srate=Math.round(this.srate);
     this.getSamount();
   }
+getSrate2(){
 
+  this.stax= ((this.srate-this.eprate)/(this.eprate))*100;
+  this.stax=Math.round(this.stax);
+  console.log(this.stax);
+  this.getSamount();
+}
+
+getPtaxamount(){
+  this.ptax= ((this.ptaxamount/this.pquantity)*100)/this.prate;
+  this.ptax = Math.round(this.ptax);
+this.getEPrate();
+}
+
+getProfitPer(){
+this.stax=(this.profit/this.eprate)*100;
+this.stax = Math.round(this.stax);
+this.getTotalProfit();
+
+}
+getTotalProfit(){
+  this.totalprofit=this.profit*this.pquantity;
+}
+getProfit(){
+  this.profit = this.srate -this.eprate;
+  this.totalprofit=this.profit*this.pquantity;
+  this.getTotalProfit();
+}
   getEPrate() {
-
+    this.ptaxamount= (this.ptax*this.prate*this.pquantity)/100;
     this.eprate = this.prate + (this.prate) * (this.ptax / 100);
     this.eprate = Math.round(this.eprate);
     this.epamount= this.eprate * this.pquantity;
+    this.getSrate();
     this.getSamount();
   }
 
@@ -119,6 +148,9 @@ export class LibformComponent implements OnInit {
   public ptax: number = null;
   public eprate: number = null;
   public epamount:number=null;
+  public ptaxamount:number=null;
+  public profit:number=null;
+  public totalprofit:number=null;
   ngOnInit() {
     if (!this.lol.getLol()) {
 
@@ -128,6 +160,10 @@ export class LibformComponent implements OnInit {
     this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
     this.apiurl = this.apiurl + "connect/";
     this.apiurl = "http://localhost/inventory/";
+    this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
+  this.apiurl = this.apiurl + "inventory/";
+  this.apiurl = this.apiurl.replace(/:4200/g, '').toLowerCase();
+
     this.getsupp();
     this.getcates();
 
@@ -140,7 +176,7 @@ export class LibformComponent implements OnInit {
 
   searchProd() {
     console.log(name);
-    this.http.get(this.apiurl + 'searchproduct.php?search=' + this.prod + '&suppid=' + this.supp).subscribe(
+    this.http.get(this.apiurl + 'searchproduct.php?useracc='+this.lol.getAcc()+'&search=' + this.prod + '&suppid=' + this.supp).subscribe(
       (res: Response) => { //const abc = res.json();
         this.products = res.json();
       })
@@ -149,7 +185,7 @@ export class LibformComponent implements OnInit {
     let key, key1;
     for (key in this.products) {
       for (key1 in key) {
-        if (this.products[key]['name'] == this.prod) {
+        if (this.products[key]['barcode'] == this.prod) {
           console.log(this.products[key]['name'] + this.products[key]['barcode'] + this.products[key]['code'] + this.products[key]['subcategory'] + this.products[key]['category']);
           this.cate = this.products[key]['subcategory'];
           this.scate = this.products[key]['category'];
@@ -173,21 +209,21 @@ export class LibformComponent implements OnInit {
     console.log("uyy" + this.prod);
   }
   getsupp() {
-    this.http.get(this.apiurl + 'getSupplier.php').subscribe(
+    this.http.get(this.apiurl + 'getSupplier.php?useracc='+this.lol.getAcc()).subscribe(
       (res: Response) => { //const abc = res.json();
         this.suppliers = res.json();
       })
   }
   getcates() {
 
-    this.http.get(this.apiurl + 'getCategory.php').subscribe(
+    this.http.get(this.apiurl + 'getCategory.php?useracc='+this.lol.getAcc()).subscribe(
       (res: Response) => { //const abc = res.json();
         this.category = res.json();
       })
   }
 
   oncate() {
-    this.http.get(this.apiurl + 'getsubcategory.php?category=' + this.cate).subscribe(
+    this.http.get(this.apiurl + 'getsubcategory.php?useracc='+this.lol.getAcc()+'&category=' + this.cate).subscribe(
       (res: Response) => { //const abc = res.json();
         this.subcategory = res.json();
       })
@@ -233,7 +269,7 @@ export class LibformComponent implements OnInit {
     }
     if (addit == false) {
       //   var str="{'code':'"+this.dcode+"',invoiceNo:'"+this.invoiceNo+"',description:'"+this.description+"',pquantity:'"+this.pquantity+"',prate:'"+this.prate+"',sid:'"+this.supp+"',pamount:'"+this.pamount+"',samount:'"+this.samount+"',srate:'"+this.srate+"',stax:'"+this.stax+"',purchasedate:'"+fulldate+"',cate:'"+this.cate+"',scate:'"+this.scate+"'}";
-      this.invoiceDetails.push({ "dcode": this.dcode, "invoiceNo": this.invoiceNo, "description": this.description, "pquantity": this.pquantity, "prate": this.prate, "eprate": this.eprate,  "epamount": this.epamount,"sid": this.supp, "pamount": this.pamount, "samount": this.samount, "srate": this.srate, "ptax": this.ptax, "stax": this.stax, "purchasedate": fulldate, "cate": this.cate, "scate": this.scate });
+      this.invoiceDetails.push({ "dcode": this.dcode, "invoiceNo": this.invoiceNo, "description": this.description, "pquantity": this.pquantity, "prate": this.prate, "eprate": this.eprate,  "epamount": this.epamount,"sid": this.supp, "pamount": this.pamount, "samount": this.samount, "srate": this.srate, "ptax": this.ptax, "stax": this.stax, "purchasedate": fulldate, "cate": this.cate, "scate": this.scate, "profit": this.profit , "totalprofit": this.totalprofit});
       this.grandPurchaseTotal = this.grandPurchaseTotal + this.pamount;
       this.grandSellingTotal = this.grandSellingTotal + this.samount;
       this.description = "";
@@ -245,10 +281,18 @@ export class LibformComponent implements OnInit {
       this.pamount = null;
       this.samount = null;
       this.dcode = null;
+      this.eprate=null;
+      this.epamount=null;
+      this.prod=null;
+      this.ptax=null;
+      this.totalprofit=null;
+      this.profit=null;
+      this.stax=1;
+      this.getPtaxamount=null;
     }
     var key, key1;
     for (key in this.invoiceDetails) {
-      console.log(this.apiurl + 'libform.php?description=' + this.invoiceDetails[key]['description'] +
+      console.log(this.apiurl + 'libform.php?useracc='+this.lol.getAcc()+'&description=' + this.invoiceDetails[key]['description'] +
         "&dcode=" + this.invoiceDetails[key]['dcode'] + "&pquantity=" + this.invoiceDetails[key]['pquantity'] +
         "&prate=" + this.invoiceDetails[key]['prate'] +"&ptax=" + this.invoiceDetails[key]['ptax'] + "&eprate=" + this.invoiceDetails[key]['eprate']  + "&epamount=" + this.invoiceDetails[key]['epamount'] + "&sid=" + this.supp +
         "&pamount=" + this.invoiceDetails[key]['pamount'] + "&purchasedate=" + fulldate + "&invoiceNo=" + this.invoiceDetails[key]['invoiceNo'] + "&stax=" + this.invoiceDetails[key]['stax'] + "&stax=" + this.invoiceDetails[key]['srate'] + "&samount=" + this.invoiceDetails[key]['samount'] + "&cate=" + this.invoiceDetails[key]['cate'] + "&scate=" + this.invoiceDetails[key]['scate']);
@@ -265,7 +309,7 @@ export class LibformComponent implements OnInit {
       var month = d.getMonth() + 1;
       var fulldate = year + "-" + month + "-" + date;
       this.grandPurchaseTotal = this.grandPurchaseTotal + this.packing;
-      this.http.get(this.apiurl + 'purchaseinvoice.php?grandSellingTotal=' + this.grandSellingTotal + "&grandPurchaseTotal=" + this.grandPurchaseTotal + "&invoiceNo=" + this.invoiceNo + "&invoicedate=" + fulldate + "&SID=" + this.supp).subscribe(
+      this.http.get(this.apiurl + 'purchaseinvoice.php?useracc='+this.lol.getAcc()+'&grandSellingTotal=' + this.grandSellingTotal + "&grandPurchaseTotal=" + this.grandPurchaseTotal + "&invoiceNo=" + this.invoiceNo + "&invoicedate=" + fulldate + "&SID=" + this.supp).subscribe(
         (res: Response) => { //const abc = res.json();
           pid = res.json();
           pidv = pid[0]['PID'];
@@ -276,7 +320,7 @@ export class LibformComponent implements OnInit {
 
               this.message = "";
 
-              this.http.get(this.apiurl + 'libform.php?pidv=' + pidv + '&description=' + this.invoiceDetails[key]['description'] + "&code=" + this.invoiceDetails[key]['dcode'] + "&pquantity=" + this.invoiceDetails[key]['pquantity'] + "&prate=" + this.invoiceDetails[key]['prate'] + "&eprate=" + this.invoiceDetails[key]['eprate'] + "&epamount=" + this.invoiceDetails[key]['epamount'] + "&sid=" + this.supp + "&pamount=" + this.invoiceDetails[key]['pamount'] + "&purchasedate=" + fulldate + "&invoiceNo=" + this.invoiceDetails[key]['invoiceNo'] + "&stax=" + this.invoiceDetails[key]['stax'] +"&ptax=" + this.invoiceDetails[key]['ptax'] + "&srate=" + this.invoiceDetails[key]['srate'] + "&samount=" + this.invoiceDetails[key]['samount'] + "&cate=" + this.invoiceDetails[key]['cate'] + "&scate=" + this.invoiceDetails[key]['scate'] + "&prodid=" + this.prodid + "&barcode=" + this.barcode).subscribe((res: Response) => { //const abc = res.json();
+              this.http.get(this.apiurl + 'libform.php?useracc='+this.lol.getAcc()+'&pidv=' + pidv + '&description=' + this.invoiceDetails[key]['description'] + "&code=" + this.invoiceDetails[key]['dcode'] + "&pquantity=" + this.invoiceDetails[key]['pquantity'] + "&prate=" + this.invoiceDetails[key]['prate'] + "&eprate=" + this.invoiceDetails[key]['eprate'] + "&epamount=" + this.invoiceDetails[key]['epamount'] + "&sid=" + this.supp + "&pamount=" + this.invoiceDetails[key]['pamount'] + "&purchasedate=" + fulldate + "&invoiceNo=" + this.invoiceDetails[key]['invoiceNo'] + "&stax=" + this.invoiceDetails[key]['stax'] +"&ptax=" + this.invoiceDetails[key]['ptax'] + "&srate=" + this.invoiceDetails[key]['srate'] + "&samount=" + this.invoiceDetails[key]['samount'] + "&cate=" + this.invoiceDetails[key]['cate'] + "&scate=" + this.invoiceDetails[key]['scate'] + "&prodid=" + this.prodid + "&barcode=" + this.barcode).subscribe((res: Response) => { //const abc = res.json();
                 this.resp = res.json();
                 console.log(this.resp);
                 var key;
@@ -300,6 +344,16 @@ export class LibformComponent implements OnInit {
                   this.dcode = null;
                   this.prod = "";
                   this.barcode = "";
+                  this.eprate=null;
+                  this.epamount=null;
+                  this.prod=null;
+                  this.ptax=null;
+                  this.prod=null;
+                  this.ptax=null;
+                  this.totalprofit=null;
+                  this.profit=null;
+                  this.stax=1;
+                  this.getPtaxamount=null;
                   this.invoiceDetails = [];
                   setTimeout(function() {
                     this.router.navigate(['enterstock']);
@@ -307,7 +361,7 @@ export class LibformComponent implements OnInit {
                 }
               })
 
-              console.log(this.apiurl + 'libform.php?description=' + this.invoiceDetails[key]['description'] +
+              console.log(this.apiurl + 'libform.php?useracc='+this.lol.getAcc()+'&description=' + this.invoiceDetails[key]['description'] +
                 "&dcode=" + this.invoiceDetails[key]['dcode'] + "&pquantity=" + this.invoiceDetails[key]['pquantity'] +
                 "&prate=" + this.invoiceDetails[key]['prate'] + "&eprate=" + this.invoiceDetails[key]['eprate'] + "&sid=" + this.supp +
                 "&pamount=" + this.invoiceDetails[key]['pamount'] + "&purchasedate=" + fulldate + "&invoiceNo=" + this.invoiceDetails[key]['invoiceNo'] + "&stax=" + this.invoiceDetails[key]['stax'] + "&stax=" + this.invoiceDetails[key]['srate'] + "&samount=" + this.invoiceDetails[key]['samount'] + "&cate=" + this.invoiceDetails[key]['cate'] + "&scate" + this.invoiceDetails[key]['scate']);
@@ -316,7 +370,7 @@ export class LibformComponent implements OnInit {
             }
             else {
               console.log("inco");
-              console.log(this.apiurl + 'libform.php?description=' + this.invoiceDetails[key]['description'] +
+              console.log(this.apiurl + 'libform.php?useracc='+this.lol.getAcc()+'&description=' + this.invoiceDetails[key]['description'] +
                 "&dcode=" + this.invoiceDetails[key]['dcode'] + "&pquantity=" + this.invoiceDetails[key]['pquantity'] +
                 "&prate=" + this.invoiceDetails[key]['prate'] + "&sid=" + this.supp +
                 "&pamount=" + this.invoiceDetails[key]['pamount'] + "&purchasedate=" + fulldate + "&invoiceNo=" + this.invoiceDetails[key]['invoiceNo'] + "&stax=" + this.invoiceDetails[key]['stax'] + "&stax=" + this.invoiceDetails[key]['srate'] + "&samount=" + this.invoiceDetails[key]['samount'] + "&cate=" + this.invoiceDetails[key]['cate'] + "&scate" + this.invoiceDetails[key]['scate']);
@@ -333,7 +387,7 @@ export class LibformComponent implements OnInit {
     }
   }
 
-  //http://localhost/inventory/libform.php?pidv=40&description=Top&code=PRI1A&pquantity=1&prate=700&eprate=742&epamount=742&sid=7&pamount=700&purchasedate=2018-1-1&invoiceNo=45667&stax=1&ptax=6&srate=1000&samount=1000&cate=Top&scate=Ladies%20Wear&prodid=27&barcode=SE13163
+  //http://localhost/inventory/libform.php?useracc='+this.lol.getAcc()+'&pidv=40&description=Top&code=PRI1A&pquantity=1&prate=700&eprate=742&epamount=742&sid=7&pamount=700&purchasedate=2018-1-1&invoiceNo=45667&stax=1&ptax=6&srate=1000&samount=1000&cate=Top&scate=Ladies%20Wear&prodid=27&barcode=SE13163
   submit() {
 
 
@@ -344,7 +398,7 @@ export class LibformComponent implements OnInit {
     var fulldate = year + "-" + month + "-" + date;
     if ((this.dcode != null) && (this.invoiceNo != null) && (this.description != "") && (this.pquantity != null) && (this.prate != null) && (this.supp != null) && (this.pamount != null) && (this.samount != null) && (this.srate != null) && (this.stax != null) && (this.purchasedate != "")) {
       this.message = "";
-      this.http.get(this.apiurl + 'libform.php?description=' + this.description + "$dcode=" + this.dcode + "&pquantity=" + this.pquantity + "&prate=" + this.prate + "&sid=" + this.supp + "&pamount=" + this.pamount + "&purchasedate=" + fulldate + "&invoiceNo=" + this.invoiceNo + "&stax=" + this.stax + "&stax=" + this.srate + "&samount=" + this.samount + "&cate=" + this.cate + "&scate" + this.scate + "&prodid=" + this.prodid+ "&eprate=" + this.eprate).subscribe(
+      this.http.get(this.apiurl + 'libform.php?useracc='+this.lol.getAcc()+'&description=' + this.description + "$dcode=" + this.dcode + "&pquantity=" + this.pquantity + "&prate=" + this.prate + "&sid=" + this.supp + "&pamount=" + this.pamount + "&purchasedate=" + fulldate + "&invoiceNo=" + this.invoiceNo + "&stax=" + this.stax + "&srate=" + this.srate + "&samount=" + this.samount + "&cate=" + this.cate + "&scate" + this.scate + "&prodid=" + this.prodid+ "&eprate=" + this.eprate).subscribe(
         (res: Response) => { //const abc = res.json();
           this.resp = res.json();
           console.log(this.resp);
@@ -365,10 +419,16 @@ export class LibformComponent implements OnInit {
             this.epamount=null;
             this.prod=null;
             this.ptax=null;
+            this.prod=null;
+            this.ptax=null;
+            this.totalprofit=null;
+            this.profit=null;
+            this.stax=1;
+            this.getPtaxamount=null;
           }
         })
     } else {
-      console.log('libform.php?description=' + this.description + "&quantity=" + this.pquantity + "&rate=" + this.prate + "&sid=" + this.supp + "&amount=" + this.pamount + "&purchasedate=" + fulldate + "&invoiceNo=" + this.invoiceNo);
+      console.log('libform.php?useracc='+this.lol.getAcc()+'&description=' + this.description + "&quantity=" + this.pquantity + "&rate=" + this.prate + "&sid=" + this.supp + "&amount=" + this.pamount + "&purchasedate=" + fulldate + "&invoiceNo=" + this.invoiceNo);
       this.message = "Please enter all values";
       this.openSnackBar(this.message, "");
     }

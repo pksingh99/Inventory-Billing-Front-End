@@ -20,20 +20,24 @@ export class NewsubcategoryComponent implements OnInit {
   public result:any="";
   public message:string="";
     ngOnInit() {
-      this.http.get(this.apiurl + 'getCategory.php').subscribe(
+      this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
+    this.apiurl = this.apiurl + "inventory/";
+    this.apiurl = this.apiurl.replace(/:4200/g, '').toLowerCase();
+
+      this.http.get(this.apiurl + 'getCategory.php?useracc='+this.lol.getAcc()+'&').subscribe(
       (res: Response) => { //const abc = res.json();
         this.category = res.json();
       })
     }
     refcat(){
-      this.http.get(this.apiurl + 'getCategory.php').subscribe(
+      this.http.get(this.apiurl + 'getCategory.php?useracc='+this.lol.getAcc()+'&').subscribe(
       (res: Response) => { //const abc = res.json();
         this.category = res.json();
       })
     }
   addit(){
 
-    this.http.get(this.apiurl + 'subcategory.php?cid='+this.cid+'&subcategory='+this.subcategory).subscribe(
+    this.http.get(this.apiurl + 'subcategory.php?useracc='+this.lol.getAcc()+'&cid='+this.cid+'&subcategory='+this.subcategory).subscribe(
     (res: Response) => { //const abc = res.json();
       this.result = res.json();
    if(this.result[0]['result']==true){

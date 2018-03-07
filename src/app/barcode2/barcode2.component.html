@@ -1,0 +1,44 @@
+<p>
+  barcode2 works!
+</p>
+<div class="row">
+  <div class="col-sm-3">
+</div>
+  <div class="col-sm-3">
+<md-form-field class="example-full-width">
+  <input mdInput placeholder="name" [(ngModel)]="name" >
+</md-form-field>
+<md-form-field class="example-full-width">
+  <input mdInput placeholder="barcode" [(ngModel)]="barcode" >
+</md-form-field>
+<md-form-field class="example-full-width">
+  <input mdInput placeholder="Number" [(ngModel)]="no" >
+</md-form-field>
+<md-slide-toggle [(ngModel)]="border">Border</md-slide-toggle>
+
+<button (click)="getItem(barcode)">get
+
+</button>
+</div>
+<div class="col-sm-3">
+</div>
+</div>
+
+<div class="row" *ngIf="border==false">
+<div *ngFor="let item of details" class="col-sm-3" [ngStyle]="{'background': 'white'}">
+  <h1>{{name}}</h1>
+  <p>Description: {{item.description}}</p>
+  <p>Rate: {{item.srate}} Rs</p>
+  <img [id]="item.description"/>
+  {{barthecode(item.description,item.barcode)}}
+</div>
+</div>
+<div class="row" *ngIf="border==true">
+<div *ngFor="let item of details" class="col-sm-3" [ngStyle]="{'background': 'white','border':'1px solid'}">
+  <h1>{{name}}</h1>
+  <p>Description: {{item.description}}</p>
+  <p>Rate: {{item.srate}} Rs</p>
+  <img [id]="item.description"/>
+  {{barthecode(item.description,item.barcode)}}
+</div>
+</div>

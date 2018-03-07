@@ -26,6 +26,10 @@ public apiurl:string="http://localhost/inventory/";
 public utypee=[{name:"admin"},{name:"billing"}];
 
   ngOnInit() {
+    this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
+  this.apiurl = this.apiurl + "inventory/";
+  this.apiurl = this.apiurl.replace(/:4200/g, '').toLowerCase();
+
     if(!this.lol.getLol()){
 
       this.router.navigateByUrl('/login');
@@ -46,7 +50,7 @@ addEmployee(){
   if(((this.upass==this.rpass))&&(this.utype!="")&&(this.name!="")&&(this.address!="")&&(this.phone!=null)&&(this.upass!="")&&(this.uname!=null)){
   // do it
 
-  this.http.get(this.apiurl + 'employees.php?utype='+this.utype+'&uname='+this.uname+'&upass='+this.upass+'&name='+this.name+"&address="+this.address+"&phone="+this.phone).subscribe(
+  this.http.get(this.apiurl + 'employees.php?useracc='+this.lol.getAcc()+'&utype='+this.utype+'&uname='+this.uname+'&upass='+this.upass+'&name='+this.name+"&address="+this.address+"&phone="+this.phone).subscribe(
   (res: Response) => { //const abc = res.json();
   this.resp = res.json();
   console.log(this.resp);

@@ -22,6 +22,10 @@ export class ShowBillsComponent implements OnInit {
   constructor(private router: Router,private lol:LolService,private http:Http) { }
 
   ngOnInit() {
+    this.apiurl = "http://" + window.location.hostname + ":" + window.location.port + "/";
+  this.apiurl = this.apiurl + "inventory/";
+  this.apiurl = this.apiurl.replace(/:4200/g, '').toLowerCase();
+
     if(!this.lol.getLol()){
 
       this.router.navigateByUrl('/login');
@@ -46,7 +50,7 @@ export class ShowBillsComponent implements OnInit {
       rt=quant;
     }
     console.log(b+","+i+","+r);
-    this.http.get(this.apiurl + 'return.php?invoice='+i+'&barcode='+b+'&amount='+r+'&return='+rt+'&quantity='+quant).subscribe(
+    this.http.get(this.apiurl + 'return.php?useracc='+this.lol.getAcc()+'&invoice='+i+'&barcode='+b+'&amount='+r+'&return='+rt+'&quantity='+quant).subscribe(
     (res: Response) => { //const abc = res.json();
       this.ret = res.json();
       this.es=this.ret[0]['result'];
@@ -62,12 +66,12 @@ getBill(){
   this.list2=[];
   this.list=[];
 
-  this.http.get(this.apiurl + 'showbills.php?inid='+this.invoiceNo).subscribe(
+  this.http.get(this.apiurl + 'showbills.php?useracc='+this.lol.getAcc()+'&inid='+this.invoiceNo).subscribe(
   (res: Response) => { //const abc = res.json();
     this.list = res.json();
 
   })
-  this.http.get(this.apiurl + 'showbilldetails.php?inid='+this.invoiceNo).subscribe(
+  this.http.get(this.apiurl + 'showbilldetails.php?useracc='+this.lol.getAcc()+'&inid='+this.invoiceNo).subscribe(
   (res: Response) => { //const abc = res.json();
     this.list2 = res.json();
 

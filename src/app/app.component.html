@@ -4,9 +4,9 @@
     <p (click)="view=0;sidenav.close();" [ngStyle]="{'margin-top': '50px'}">
       <b [routerLink]="['/enterstock']" [ngStyle]="{'font-size': '15px'}">Enter Stock</b>
     </p>
-    <p (click)="view=1;sidenav.close();" [ngStyle]="{'margin-top': '20px'}">
+<!--    <p (click)="view=1;sidenav.close();" [ngStyle]="{'margin-top': '20px'}">
     <b  [routerLink]="['/showstock']"  [ngStyle]="{'font-size': '15px'}">  View Stock</b>
-    </p>
+  </p> -->
     <p (click)="view=2;sidenav.close();" [ngStyle]="{'margin-top': '20px'}">
     <b  [routerLink]="['/supplier']"  [ngStyle]="{'font-size': '15px'}">  Supplier </b>
     </p>
@@ -19,9 +19,9 @@
     <p (click)="view=5;sidenav.close();" [ngStyle]="{'margin-top': '20px'}">
     <b  [routerLink]="['/showbills']"  [ngStyle]="{'font-size': '15px'}">  Show Bills </b>
     </p>
-    <p (click)="view=6;sidenav.close();" [ngStyle]="{'margin-top': '20px'}">
+  <!--  <p (click)="view=6;sidenav.close();" [ngStyle]="{'margin-top': '20px'}">
     <b  [routerLink]="['/barcode']"  [ngStyle]="{'font-size': '15px'}">  Barcode </b>
-    </p>
+  </p> -->
   </div>
   <div *ngIf="utype=='billing'">
   <p (click)="view=3;sidenav.close();" [ngStyle]="{'margin-top': '20px'}">

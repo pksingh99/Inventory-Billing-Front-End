@@ -1,11 +1,15 @@
 <md-card id="hide" [ngStyle]="{'margin-bottom': '20px'}">
   <div class="row">
-    <div class="col-sm-3 col-md-4 col-lg-2 cell" [ngStyle]="{'margin-top': '5px'}">
-      <md-select placeholder="Employee" [(ngModel)]="semp">
+    <div class="col-sm-3 col-md-4 col-lg-2 cell" >
+    <!--  <md-select placeholder="Employee" [(ngModel)]="semp">
         <md-option *ngFor="let emp of employee" [value]="emp.ID">
           {{ emp.name }}
         </md-option>
-      </md-select>
+      </md-select>-->
+      <md-form-field class="example-full-width">
+        <input mdInput disabled placeholder="User" [(ngModel)]="uname">
+      </md-form-field>
+
     </div>
     <div class="col-sm-3 col-md-4 col-lg-2 cell">
 
@@ -25,9 +29,9 @@
         <input mdInput placeholder="Barcode" [(ngModel)]="barcode" type=text (change)="goGet()">
       </md-form-field>
     </div>
-    <div class="col-sm-3 col-md-4 col-lg-2 cell">
+    <!--<div class="col-sm-3 col-md-4 col-lg-2 cell">
       <md-form-field>
-        <input type="text" mdInput [matAutocomplete]="auto" placeholder="Search" [(ngModel)]="sbarcode" (change)="goGet()">
+        <input type="text" mdInput [matAutocomplete]="auto" placeholder="Search" [(ngModel)]="sbarcode" (change)="goGet2()">
       </md-form-field>
 
       <md-autocomplete #auto="mdAutocomplete">
@@ -35,7 +39,7 @@
           {{ option.rate }}
         </md-option>
       </md-autocomplete>
-    </div>
+    </div> -->
     <div class="col-sm-3 col-md-4 col-lg-2 cell" [ngStyle]="{'display': 'flex'}">
       <button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="goGet()">Add</button>
       <button [ngStyle]="{'margin': '10px'}" md-raised-button color="primary" (click)="showCate('overlay');updateBill();" *ngIf="show==false">Paid</button>
@@ -46,10 +50,10 @@
 </md-card>
 <md-card id="bill">
 
-  <h3><b><u></u></b></h3>
-  <p>Address: Near Church Panjim 403001 Goa India</p>
-  <p>Phone Number: (0832) 2224284, 2424284,</p>
-  <p>Whatsapp No: 9421345796</p>
+  <h3><b><u>{{aname}}</u></b></h3>
+  <p>Address: {{add}}</p>
+  <p>Phone Number: {{phonen}},</p>
+  <p>Whatsapp No: {{whatsapp}}</p>
   <p>Invoice No: <b [ngStyle]="{'font-size': '20px'}">{{invoiceNo}}</b></p>
   <br>
   <table class="table">
